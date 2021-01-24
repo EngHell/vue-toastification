@@ -1,5 +1,6 @@
 import { createApp, nextTick } from "vue"
 import { EventBus } from "./eventBus"
+const mount = require("mount-vue-component")
 import ToastContainer from "../components/VtToastContainer.vue"
 import {
   ToastContent,
@@ -19,14 +20,27 @@ export const buildInterface = (
     globalOptions.eventBus || new EventBus())
   if (mountContainer) {
     nextTick(() => {
+      /*
       const app = createApp(ToastContainer, {
         ...globalOptions,
       })
       const component = app.mount(document.createElement("div"))
-
+      */
+      if (!globalOptions._________app) {
+        console.log("app is required for toast creation.")
+        return
+      }
+      const { vNode, destroy, el } = mount(ToastContainer, {
+        app: globalOptions._________app,
+        props: {
+          ...globalOptions,
+        },
+      })
       const onMounted = globalOptions.onMounted
       if (!isUndefined(onMounted)) {
-        onMounted(component, app)
+        if (vNode.component?.proxy && vNode.appContext?.app) {
+          onMounted(vNode.component?.proxy, vNode.appContext?.app)
+        }
       }
     })
   }

@@ -13,7 +13,7 @@
     "noImplicitThis": true,
     "strictNullChecks": true,
     "jsx": "preserve",
-    "types": ["@types/jest"],
+    "types": ["node", "@types/jest"],
     "resolveJsonModule": true,
     "esModuleInterop": true
   },

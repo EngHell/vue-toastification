@@ -1,10 +1,11 @@
-import type { App, Component, ComponentPublicInstance } from "vue"
+import type { App, AppContext, Component, ComponentPublicInstance } from "vue"
 import type { EventBusInterface } from "../ts/eventBus"
 import type { TYPE, POSITION } from "../ts/constants"
 
 export type ToastID = string | number
 
 export interface CommonOptions {
+  _________app?: App<Element>
   /**
    *  Position of the toast on the screen.
    *
@@ -112,6 +113,17 @@ export interface CommonOptions {
 type ContainerCallback = () => HTMLElement | Promise<HTMLElement>
 
 export interface PluginOptions extends CommonOptions {
+  /**
+   * You can get this from const app = createApp({...})
+   * this is required even when its marqued as optional
+   * im just running tru this to finish something more important.
+   * so no time now to fix the whole thing
+   *
+   * btw all those underscores to avoid collisions with any vue internal i dont know,
+   * as i have some days of reading vue implementation code and i dont think there are
+   * but yet the more you know
+   */
+  _________app?: App<Element>
   /**
    * Container where the toasts are mounted.
    */
